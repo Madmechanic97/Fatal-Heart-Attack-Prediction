@@ -1,0 +1,191 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="img"></div>
+        <form action="{{ url_for('predict')}}" method="post">
+            <h2>Fatal Heart Attack Likelihood</h2>
+            <h3>Age</h3>
+            <input id="age" name="age" type="number">
+            <h3>Creatinine Phosphokinase</h3><br><input id="creatinine" name="creatinine_phosphokinase" required="required">
+            <h3>Ejection Fraction</h3><input id="ejection_fraction" name="ejection_fraction" required="required">
+            <h3>Platelets</h3><input id="platelets" name="platelets" required="required">
+            <h3>Serum Creatinine</h3><input id="serum_creatinine" name="serum_creatinine" required="required">
+            <h3>Serum Sodium </h3><input id="serum_sodium" name="serum_sodium" required="required">
+
+            <h3>Do you have Anaemia?</h3><br>
+            <select name="anaemia" id="anaemia" required="required">
+                <option style="display:none" selected="selected" value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <h3>Do you have Diabetes?</h3><br>
+            <select name="diabetes" id="diabetes" required="required">
+                <option style="display:none" selected="selected" value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <h3>Do you have high blood pressure?</h3><br>
+            <select name="high_blood_pressure" id="high_blood_pressure" required="required">
+                <option style="display:none" selected="selected" value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <h3>What is your gender assigned at birth?</h3><br>
+            <select name="sex" id="sex" required="required">
+                <option style="display:none" selected="selected" value=""></option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <h3>Do you smoke?</h3><br>
+            <select name="smoke" id="smoke" required="required">
+                <option style="display:none" selected="selected" value=""></option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+
+            <br><br><br>
+            <button id="button" type="submit ">Determine Likelihood of Fatal Heart Attack</button>
+            <br>
+        </form>
+        <br><h3>{{ prediction_texts }}<h3>
+    </div>
+
+
+
+
+    <style>
+
+h2{color:#6B0500;-webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black}
+h3{color:#6B0500;-webkit-text-stroke-width: 0.2px;
+    -webkit-text-stroke-color: black}
+body {background-color: Azure;text-align: center;padding: 0px;
+font-family: "Hevetica Neue",Helvetica,Arial,sans-serif}
+button{font-family:"Merriweather"}
+.img{background: url('https://healthblog.uofmhealth.org/sites/consumer/files/2020-01/heart_beating_0.gif');
+background-repeat: no-repeat;
+background-size: auto;
+background-size:100% 100%;
+-webkit-filter: blur(7px);
+-moz-filter: blur(7px);
+-o-filter: blur(7px);
+-ms-filter: blur(7px);
+filter: blur(7px);
+position: fixed;
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+z-index: -1;
+right:50px
+background-lo;
+filter: hue-rotate(-15deg);
+}
+
+
+#options{font-size: 18px;width: 100px;height: 23px;top: 23px;}
+#age {font-style: Tahoma;
+        width: 100px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#creatinine {
+  width: 150px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#ejection_fraction{
+  width: 150px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#platelets{
+  width: 150px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#serum_creatinine{
+width: 150px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#serum_sodium{
+  width: 150px;
+        border-radius: 14px;
+        height: 25px;
+        font-size: 20px;
+        text-align: center;}
+#anaemia {
+        width: 50px;
+        height: 35px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;}
+#anaemia:hover {
+        background-color: #66BFBF;}
+
+#diabetes {
+        width: 50px;
+        height: 35px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;}
+#diabetes:hover {background-color: #66BFBF;}
+#high_blood_pressure {
+        width: 50px;
+        height: 35px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;}
+#high_blood_pressure:hover {background-color: #66BFBF;}
+#sex {
+        width: 60px;
+        height: 35px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;}
+#sex:hover {background-color: #66BFBF;}
+#smoke{
+        width: 60px;
+        height: 35px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;}
+#smoke:hover {background-color: #66BFBF;}
+
+
+
+#button {width: 120px;
+        height: 74px;
+        text-align: center;
+        border-radius: 14px;
+        font-size: 15px;
+        border-width: thin;
+        background-color:#FEFEFE}
+#button:hover {
+        background-color: #66BFBF;
+
+
+
+
+
+    </style>
+</body>
+
+</html>
